@@ -1,0 +1,662 @@
+{
+	"info": {
+		"_postman_id": "f5a345ce-924f-4b81-8a72-6c92e01f4859",
+		"name": "Collection_6",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21044820"
+	},
+	"item": [
+		{
+			"name": "Log_In",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json ();",
+							"var resp_token = jsonData.token;",
+							"",
+							"pm.environment.set(\"token\", resp_token);",
+							"",
+							"console.log(resp_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "qwer",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "q123q",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request_RAW_JSON_user_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1) Статус код 200",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"// 2. Перевірка структури json у відповіді:",
+							"var schema = {",
+							"\"age\": 25,",
+							"\"salary\": 2000,",
+							"\"name\": \"Alina\",",
+							"\"auth_token\": \"{{token}}\"",
+							"}",
+							"",
+							"pm.test('Schema is valid', () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"});",
+							"console.log(schema)",
+							"",
+							"// 2.1 Порівняти відповідь із запитом",
+							"pm.test(\"Check Json age\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.person.u_age).to.eql(25);",
+							"});",
+							"",
+							"pm.test(\"Check Age Resp=Req\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var req_raw = JSON.parse(pm.request.body.raw);",
+							"    var req_a = +req_raw.age;",
+							"",
+							"    pm.expect(jsonData.person.u_age).to.eql(req_a);",
+							"});",
+							"",
+							"// 2.2.Перевірити name, яке є 0-вим елементом у масиві відповіді:",
+							"pm.test(\"Check Name Resp=Req\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var req_raw = JSON.parse(pm.request.body.raw);",
+							"    var req_n = req_raw.name;",
+							"",
+							"    pm.expect(jsonData.person.u_name[0]).to.eql(req_n);",
+							"});",
+							"",
+							"// 2.3.Перевірити salary, яке є 1-им елементом у масиві відповіді:",
+							"pm.test(\"Check Salary Resp=Req\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var req_raw = JSON.parse(pm.request.body.raw);",
+							"    var req_s = req_raw.salary;",
+							"",
+							"    pm.expect(jsonData.person.u_name[1]).to.eql(req_s);",
+							"});",
+							"",
+							"// 3.Перевірка правильності результату перемноження на коефіцієнт (у відповіді вказані коефіцієнти множення salary).",
+							"// 'u_salary_1.5_year': salary * 4",
+							"",
+							"pm.test(\"Check coefficients multiplying *4\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_sal = jsonData.person.u_salary_1_5_year;",
+							"",
+							"    var req_raw = JSON.parse(pm.request.body.raw);",
+							"    var req_s = req_raw.salary;",
+							"",
+							"    pm.expect(resp_sal).to.eql(req_s*4);",
+							"    ",
+							"console.log(req_s*4)",
+							"console.log(resp_sal)",
+							"});",
+							"",
+							"// 'qa_salary_after_12_months': salary * 2.9",
+							"pm.test(\"Check coefficients multiplying *2.9\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_sal = jsonData.qa_salary_after_12_months;",
+							"",
+							"    var req_raw = JSON.parse(pm.request.body.raw);",
+							"    var req_s = req_raw.salary;",
+							"",
+							"    pm.expect(resp_sal).to.eql(req_s*2.9);",
+							"    ",
+							"console.log(req_s*2.9)",
+							"console.log(resp_sal)",
+							"});",
+							"// qa_salary_after_6_months': salary * 2",
+							"pm.test(\"Check coefficients multiplying *2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_sal = jsonData.qa_salary_after_6_months;",
+							"",
+							"    var req_raw = JSON.parse(pm.request.body.raw);",
+							"    var req_s = req_raw.salary;",
+							"",
+							"    pm.expect(resp_sal).to.eql(req_s*2);",
+							"    ",
+							"console.log(req_s*2)",
+							"console.log(resp_sal)",
+							"});",
+							"// 4. Дістати значення з поля 'u_salary_1.5_year' і передати до поля запиту salary http://162.55.220.72:5005/get_test_user",
+							"var jsonData = pm.response.json();",
+							"var salary_1_5 = jsonData.person.u_salary_1_5_year",
+							"console.log(salary_1_5)",
+							"pm.environment.set(\"salary_1_5_year\", salary_1_5);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"age\": 25,\n\"salary\": 2000,\n\"name\": \"Alina\",\n\"auth_token\": \"{{token}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user_info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New_data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//  1.Статус код 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// 2.Перевірка структури json у відповіді.",
+							"var schema = {",
+							"    \"age\": 33,",
+							"    \"name\": \"Julia\",",
+							"    \"salary\": [",
+							"        3000,",
+							"        \"6000\",",
+							"        \"9000\"",
+							"    ]",
+							"}",
+							"pm.test('Schema is valid', () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"});",
+							"console.log(schema)",
+							"",
+							"// 3.Тести щодо перевірки правильності результату перемноження на коефіцієнт (у відповіді вказані коефіцієнти множення salary).",
+							"// Resp.",
+							"// {'name':name,",
+							"//   'age': int(age),",
+							"//   'salary': [salary, str(salary*2), str(salary*3)]}",
+							"",
+							"pm.test(\"Check coefficients multiplying *2\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_sal = +jsonData.salary[1];",
+							"",
+							"    var req = request.data;",
+							"    var req_sal = req.salary;",
+							"",
+							"    pm.expect(resp_sal).to.eql(req_sal*2);",
+							"    ",
+							"console.log(req_sal*2)",
+							"console.log(resp_sal)",
+							"});",
+							"",
+							"pm.test(\"Check coefficients multiplying *3)\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_sal = +jsonData.salary[2];",
+							"",
+							"    var req = request.data;",
+							"    var req_sal = req.salary;",
+							"",
+							"    pm.expect(resp_sal).to.eql(req_sal*3);",
+							"    ",
+							"console.log(req_sal*3)",
+							"console.log(resp_sal)",
+							"});",
+							"",
+							"// 4.Перевірити, що 2-й елемент масиву salary більше 1-го та 0-го",
+							"var jsonData = pm.response.json ();",
+							"var resp_salary = jsonData.salary;",
+							"    var sal_0 = resp_salary[0];",
+							"    var sal_1 = resp_salary[1];",
+							"    var sal_2 = resp_salary[2];",
+							"",
+							"var result_1 = sal_2 > sal_1",
+							"var result_2 = sal_2 > sal_0",
+							"var result_1_2 = sal_2 < sal_1",
+							"var result_2_2 = sal_2 < sal_0",
+							"",
+							"console.log(\"result_1 ==\", result_1);",
+							"console.log(\"result_2 ==\", result_2);",
+							"console.log(\"result_1_2 ==\", result_1_2);",
+							"console.log(\"result_2_2 ==\", result_2_2);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "33",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "3000",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Julia",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/new_data",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"new_data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pet_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//  1.Статус код 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// 2.Перевірка структури json у відповіді.",
+							"var schema = {",
+							"    \"age\": 3,",
+							"    \"daily_food\": 0.048,",
+							"    \"daily_sleep\": 10.0,",
+							"    \"name\": \"Like\"",
+							"}",
+							"pm.test('Schema is valid', () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    console.log(schema)",
+							"});",
+							"",
+							"// 3.Тести щодо перевірки правильності результату перемноження на коефіцієнт (у відповіді вказані коефіцієнти множення weight).",
+							"// Resp.",
+							"// {'name':name,",
+							"//   'age': int(age),",
+							"//    'daily_food':weight * 0.012,",
+							"//    'daily_sleep': weight * 2.5}",
+							"",
+							"pm.test(\"Check coefficients multiplying *0.012\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_daily_food = jsonData.daily_food;",
+							"",
+							"    var req = request.data;",
+							"    var weight = req.weight;",
+							"",
+							"    pm.expect(resp_daily_food).to.eql(weight*0.012);",
+							"    ",
+							"console.log(weight*0.012)",
+							"console.log(resp_daily_food)",
+							"});",
+							"",
+							"pm.test(\"Check coefficients multiplying *2.5\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_daily_sleep = jsonData.daily_sleep;",
+							"",
+							"    var req = request.data;",
+							"    var weight = req.weight;",
+							"",
+							"    pm.expect(resp_daily_sleep).to.eql(weight*2.5);",
+							"    ",
+							"console.log(weight*2.5)",
+							"console.log(resp_daily_sleep)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "weight",
+							"value": "4",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Like",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/test_pet_info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"test_pet_info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_test_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//  1.Статус код 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// 2.Перевірка структури json у відповіді.",
+							"var schema = {",
+							"    \"age\": \"40\",",
+							"    \"family\": {",
+							"        \"children\": [",
+							"            [",
+							"                \"Alex\",",
+							"                24",
+							"            ],",
+							"            [",
+							"                \"Kate\",",
+							"                12",
+							"            ]",
+							"        ],",
+							"        \"u_salary_1_5_year\": 32000",
+							"    },",
+							"    \"name\": \"Igor\",",
+							"    \"salary\": 8000",
+							"}",
+							"pm.test('Schema is valid', () => {",
+							"    pm.response.to.have.jsonSchema(schema);",
+							"    console.log(schema)",
+							"});",
+							"",
+							"// OR 2.1. Перевірка структури json у відповіді.",
+							"// pm.test(\"2.2 Schema validation\", () => {",
+							"//     pm.response.to.have.jsonSchema (schema);",
+							"// });",
+							"",
+							"",
+							"// 3.Перевірити, що значення поля name = значення змінної name з оточення",
+							"pm.test(\"Check Name Req(Env)=Resp\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_name = jsonData.name;",
+							"",
+							"    var req = request.data;",
+							"    var req_name = req.name;",
+							"",
+							"    pm.expect(resp_name).to.eql(req_name);",
+							"    ",
+							"console.log(resp_name)",
+							"console.log(req_name)",
+							"});",
+							"",
+							"// 4.Перевірка, що значення поля age у відповіді відповідає відправленому в запиті значенню поля age",
+							"pm.test(\"Check Age Req=Resp\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var resp_age = jsonData.age;",
+							"",
+							"    var req = request.data;",
+							"    var req_age = req.age;",
+							"",
+							"    pm.expect(resp_age).to.eql(req_age);",
+							"    ",
+							"console.log(resp_age)",
+							"console.log(req_age)",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "40",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary_1_5_year}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/get_test_user",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"get_test_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Currency",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 1.Взяти будь-який об'єкт із надісланого списку, (js random).",
+							"var response = pm.response.json();",
+							"var random_obj = Math.floor(Math.random() * (response.length-1));",
+							"",
+							"console.log (response[random_obj])",
+							"",
+							"// 2.В об'єкті взяти Cur_ID і передати через оточення до наступного запиту.",
+							"var resp_Cur_id = response[random_obj].Cur_ID;",
+							"pm.environment.set(\"curr_code\", resp_Cur_id);",
+							"var resp_Cur_Abbreviation = response[random_obj].Cur_Abbreviation;",
+							"",
+							"console.log (resp_Cur_id)",
+							"console.log (resp_Cur_Abbreviation)",
+							"",
+							"// *** Цикл що ітерирує список ",
+							"var jsonData = pm.response.json ();",
+							"var resp_Cur_id = jsonData.Cur_id",
+							"// var resp_ = Object.keys(jsonData.Cur_ID);",
+							"",
+							"for (var i of resp_Cur_id) {",
+							"    var resp_Cur_id = jsonData.Cur_id[i];",
+							"    pm.sendRequest(",
+							"        {",
+							"            url: \"http://54.157.99.22:80/curr_byn\",",
+							"            method:\"POST\",",
+							"            body:{",
+							"                mode: \"formdata\",",
+							"                formdata: [",
+							"                    {key: \"auth_token\", value: pm.environment.get(\"token\"),",
+							"                    disabled: false},",
+							"                    {key: \"curr_code\", value: pm.environment.get(\"curr_code\"),",
+							"                    disabled: false},",
+							"                ]",
+							"            }",
+							"        }",
+							"    )",
+							"        if (typeof resp_Cur_id == \"object\")",
+							"          for (var ii of resp_Cur_id)",
+							"   ",
+							"    console.log(\"person data ===\", ii)",
+							"     }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/currency",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"currency"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Сurr_byn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//  1.Статус код 200",
+							"",
+							"// 2.Перевірка структури json у відповіді.",
+							"// var schema = {",
+							"    ",
+							"",
+							"    ",
+							"// pm.test('Schema is valid', () => {",
+							"//     pm.response.to.have.jsonSchema(schema);",
+							"//     console.log(schema)",
+							"// });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						},
+						{
+							"key": "curr_code",
+							"value": "{{curr_code}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/currency",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"currency"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,578 @@
+{
+	"info": {
+		"_postman_id": "c98e5a2b-8d74-4890-ae5c-f4cf31bbb5cb",
+		"name": "Collection_5",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21044820"
+	},
+	"item": [
+		{
+			"name": "Salary_To_Req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Вставити параметр salary з оточення в request",
+							"// Перевірити в консолі",
+							"var req = request.data;",
+							"",
+							"console.log (req)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Anna",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "22",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Age_To_Req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Вставити параметр salary з оточення в request",
+							"// Перевірити в консолі",
+							"var req = request.data;",
+							"",
+							"console.log (req)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Anna",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Name_To_Req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Вставити параметр salary з оточення в request",
+							"// Перевірити в консолі",
+							"var req = request.data;",
+							"",
+							"console.log (req)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "22",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "1000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Parth_Req_Resp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"// Спарсити response body у json.",
+							"var jsonData = pm.response. json ();",
+							"var resp = jsonData",
+							"",
+							"console.log (resp)",
+							"",
+							"// Спарсити request.",
+							"var req = request.data;",
+							"",
+							"console.log (req)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check_if_Have_Params",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// Спарсити response body у json.",
+							"var jsonData = pm.response. json ();",
+							"",
+							"console.log (jsonData)",
+							"",
+							"// Перевірити, чи json response має параметр start_qa_salary",
+							"pm.test('Has start_qa_salary', function() {",
+							"  pm.expect(jsonData).to.have.property('start_qa_salary');",
+							"});",
+							"",
+							"// Перевірити, чи json response має параметр qa_salary_after_6_months",
+							"pm.test('Has qa_salary_after_6_months', function() {",
+							"  pm.expect(jsonData).to.have.property('qa_salary_after_6_months');",
+							"});",
+							"",
+							"// Перевірити, чи json response має параметр qa_salary_after_12_months",
+							"pm.test('Has qa_salary_after_12_months', function() {",
+							"  pm.expect(jsonData).to.have.property('qa_salary_after_12_months');",
+							"});",
+							"",
+							"// Перевірити, чи json response має параметр qa_salary_after_1.5_year",
+							"pm.test('Has qa_salary_after_1.5_year', function() {",
+							"  pm.expect(jsonData).to.have.property('qa_salary_after_1.5_year');",
+							"});",
+							"",
+							"// Перевірити, чи json response має параметр qa_salary_after_3.5_years",
+							"pm.test('Has qa_salary_after_3.5_years', function() {",
+							"  pm.expect(jsonData).to.have.property(\"qa_salary_after_3.5_years\");",
+							"});",
+							"",
+							"// Перевірити, чи json response має параметр person",
+							"pm.test('Has person', function() {",
+							"  pm.expect(jsonData).to.have.property('person');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check_if_Value_Match_Resp_Req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Спарсити request",
+							"var req = request.data;",
+							"var req_s = +req.salary;",
+							"",
+							"// Спарсити response body у json.",
+							"var jsonData = pm.response. json ();",
+							"var resp1 = jsonData.start_qa_salary; ",
+							"",
+							"",
+							"//Перевірити, що параметр start_qa_salary дорівнює salary із request (salary забрати з request.)",
+							"pm.test(\"Req_Resp_1_Check_Match\", function () {",
+							"    pm.expect(resp1).to.eql(req_s);",
+							"});",
+							"",
+							"console.log(req_s)",
+							"console.log(resp1)",
+							"",
+							"",
+							"//Перевірити, що параметр qa_salary_after_6_months дорівнює salary*2 із request (salary забрати з request.)",
+							"var resp2 = jsonData.qa_salary_after_6_months; ",
+							"",
+							"pm.test(\"Req_Resp_2_Check_Match\", function () {",
+							"    pm.expect(resp2).to.eql(req_s*2);",
+							"});",
+							"",
+							"console.log(req_s)",
+							"console.log(resp2)",
+							"",
+							"",
+							"//Перевірити, що параметр qa_salary_after_12_months дорівнює salary*2.7 із request (salary забрати з request.)",
+							"var resp3 = jsonData.qa_salary_after_12_months; ",
+							"",
+							"pm.test(\"Req_Resp_3_Check_Match\", function () {",
+							"    pm.expect(resp3).to.eql(req_s*2.7);",
+							"});",
+							"",
+							"console.log(req_s)",
+							"console.log(resp3)",
+							"",
+							"",
+							"// Перевірити, що параметр qa_salary_after_1.5_year дорівнює salary*3.3 із request (salary забрати з request.)",
+							"var resp4 = jsonData['qa_salary_after_1.5_year']; ",
+							"",
+							"pm.test(\"Req_Resp_4_Check_Match\", function () {",
+							"    pm.expect(resp4).to.eql(req_s*3.3);",
+							"});",
+							"",
+							"console.log(req_s)",
+							"console.log(resp4)",
+							"",
+							"",
+							"//Перевірити, що параметр qa_salary_after_3.5_years дорівнює salary*3.8 із request (salary забрати з request.)",
+							"var resp5 = jsonData['qa_salary_after_3.5_years']; ",
+							"",
+							"pm.test(\"Req_Resp_5_Check_Match\", function () {",
+							"    pm.expect(resp5).to.eql(req_s*3.8);",
+							"});",
+							"",
+							"console.log(req_s)",
+							"console.log(resp5)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check_if_Value_Match_Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Спарсити request",
+							"var req = request.data;",
+							"var req_s = +req.salary;",
+							"",
+							"// Спарсити response body у json.",
+							"var jsonData = pm.response. json ();",
+							"var resp1 = jsonData.person.u_name; ",
+							"",
+							"",
+							"//Перевірити, що в параметрі person, 1-й елемент u_name дорівнює salary з request (salary забрати з request.)",
+							"pm.test(\"Req_Resp_1_Check_Order_Match\", function () {",
+							"    pm.expect(resp1[1]).to.eql(req_s);",
+							"});",
+							"",
+							"console.log(req_s)",
+							"console.log(resp1[1])",
+							"",
+							"",
+							"//Перевірити, що параметр start_qa_salary дорівнює salary із request (salary забрати з request.)",
+							"var resp2 = jsonData.start_qa_salary; ",
+							"",
+							"pm.test(\"Req_Resp_2_Check_Order_Match\", function () {",
+							"    pm.expect(resp2).to.eql(req_s);",
+							"});",
+							"",
+							"console.log(req_s)",
+							"console.log(resp2)",
+							"",
+							"",
+							"//Перевірити, що параметр u_age дорівнює age з request (age забрати з request.)",
+							"var resp3 = jsonData.person.u_age; ",
+							"",
+							"var req = request.data;",
+							"var req_a = +req.age;",
+							"",
+							"pm.test(\"Req_Resp_3_Check_Order_Match\", function () {",
+							"    pm.expect(resp3).to.eql(req_a);",
+							"});",
+							"",
+							"console.log(req_a)",
+							"console.log(resp3)",
+							"",
+							"//Перевірити, що параметр u_salary_5_years дорівнює salary*4.2 із request (salary забрати з request.)",
+							"var resp4 = jsonData.person.u_salary_5_years; ",
+							"",
+							"pm.test(\"Req_Resp_4_Check_Order_Match\", function () {",
+							"    pm.expect(resp4).to.eql(req_s*4.2);",
+							"});",
+							"",
+							"console.log(req_s*4.2)",
+							"console.log(resp4)",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user_info_2_Cycle_Order_Person",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Написати цикл, який виведе в консоль по порядку елементи списку з параметра person.",
+							"var jsonData = pm.response.json ();",
+							"var resp_person = Object.keys(jsonData.person);",
+							"    // var person = jsonData.person;",
+							"",
+							"for (var i of resp_person) {",
+							"    var resp_person = jsonData.person[i];",
+							"        if (typeof resp_person == \"object\")",
+							"          for (var ii of resp_person)",
+							"   ",
+							"    console.log(\"person data ===\", ii)",
+							"     }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_2",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

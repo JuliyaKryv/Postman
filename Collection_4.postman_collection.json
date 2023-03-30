@@ -1,0 +1,888 @@
+{
+	"info": {
+		"_postman_id": "44cc9ccb-0bc9-4032-b692-b4e5a754575e",
+		"name": "Collection_4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21044820"
+	},
+	"item": [
+		{
+			"name": "/object_info_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Статус код 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Resp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Спарсити response body у json.",
+							"var jsonData = pm.response.json();",
+							"// var resp_age = jsonData.age",
+							"",
+							"console.log(jsonData)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Req",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Спарсить request.",
+							"var req_url = pm.request.url.query.toObject();",
+							"",
+							"console.log(req_url)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Match_Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Перевірити, що name у відповіді таке ж як name s request",
+							"var jsonData = pm.response.json();",
+							"var resp_name = jsonData.name;",
+							"",
+							"var req_url = pm.request.url.query.toObject();",
+							"var req_name = req_url.name;",
+							"",
+							"console.log(\"Req Name =\" + req_name)",
+							"console.log(\"Resp Name =\" + resp_name)",
+							"",
+							"pm.test(\"Req_Resp_Name_Check_URL\", function () {",
+							"    pm.expect(resp_name).to.eql(req_name);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Match_Age",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Перевірити, що age у відповіді таке ж як age s request",
+							"var req_url = pm.request.url.query.toObject();",
+							"var req_age = + req_url.age",
+							"",
+							"var jsonData = pm.response.json();",
+							"var resp_age = jsonData.age",
+							"",
+							"console.log(\"Req Age =\" + req_age)",
+							"console.log(\"Resp Age =\" + resp_age)",
+							"",
+							"pm.test(\"Req_Resp_Age_Check_URL\", function () {",
+							"    pm.expect(resp_age).to.eql(req_age);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Console_Salary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Перевірити, що salary у відповіді таке ж як salary s request",
+							"var req_url = pm.request.url.query.toObject();",
+							"var req_salary = req_url.salary",
+							"",
+							"var jsonData = pm.response.json();",
+							"var resp_salary = jsonData.salary",
+							"",
+							"// Вивести в консоль параметр salary із request.",
+							"// Вивести в консоль параметр salary з response.",
+							"console.log(\"Request Salary =\" + req_salary)",
+							"console.log(\"Response Salary =\" + resp_salary)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Resp0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Вивести в консоль 0-й елемент параметру salary з response.",
+							"var jsonData = pm.response.json();",
+							"var resp_salary = jsonData.salary[0]",
+							"",
+							"console.log(\"Response Salary =\" + resp_salary)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Resp1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Вивести в консоль 1-й елемент параметру salary з response.",
+							"var jsonData = pm.response.json();",
+							"var resp_salary = jsonData.salary[1]",
+							"",
+							"console.log(\"Response Salary =\" + resp_salary)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Resp2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Вивести в консоль 2-й елемент параметру salary з response.",
+							"var jsonData = pm.response.json();",
+							"var resp_salary = jsonData.salary[2]",
+							"",
+							"console.log(\"Response Salary =\" + resp_salary)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Match_0_Elem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Перевірити, що 0-й елемент параметра salary дорівнює salary із request (salary забрати з request.)",
+							"var jsonData = pm.response.json();",
+							"var resp_salary = jsonData.salary[0]",
+							"",
+							"var req_url = pm.request.url.query.toObject();",
+							"var req_salary = + req_url.salary",
+							"",
+							"console.log(\"Response Salary =\" + resp_salary)",
+							"console.log(\"Request Salary =\" + req_salary)",
+							"",
+							"pm.test(\"Req_Resp_Age_Check_URL\", function () {",
+							"    pm.expect(resp_salary).to.eql(req_salary);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Match_1_Elem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Перевірити, що 1-й елемент параметра salary дорівнює salary*2 із request (salary забрати з request.)",
+							"var jsonData = pm.response.json();",
+							"var resp_salary = + jsonData.salary[1]",
+							"",
+							"var req_url = pm.request.url.query.toObject();",
+							"var req_salary = req_url.salary",
+							"",
+							"console.log(\"Response Salary =\" + resp_salary)",
+							"console.log(\"Request Salary =\" + req_salary)",
+							"",
+							"pm.test(\"Req_Resp_Age_Check_URL\", function () {",
+							"    pm.expect(resp_salary).to.eql(req_salary*2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Match_2_Elem",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Перевірити, що 2-й елемент параметра salary дорівнює salary*3 із request (salary забрати з request.)",
+							"var jsonData = pm.response.json();",
+							"var resp_salary = + jsonData.salary[2]",
+							"",
+							"var req_url = pm.request.url.query.toObject();",
+							"var req_salary = req_url.salary",
+							"",
+							"console.log(\"Response Salary =\" + resp_salary)",
+							"console.log(\"Request Salary =\" + req_salary)",
+							"",
+							"pm.test(\"Req_Resp_Age_Check_URL\", function () {",
+							"    pm.expect(resp_salary).to.eql(req_salary*3);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Var_in_Envir",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var resp_name = jsonData.name;",
+							"var resp_age = jsonData.age;",
+							"var resp_salary = jsonData.salary;",
+							"// Створити/Передати до оточення змінну name",
+							"// Створити/Передати в оточення змінну age",
+							"// Створити/Передати в оточення змінну salary",
+							"",
+							"pm.environment.set(\"name\", resp_name);",
+							"pm.environment.set(\"age\", resp_age);",
+							"pm.environment.set(\"salary\", resp_salary[1]);",
+							"",
+							"console.log(\"Resp Name =\" + resp_name)",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/object_info_4_Cycle_Salary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Статус код 200",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var jsonData = pm.response.json();",
+							"var salary = jsonData.salary",
+							"",
+							"// Вивести в консоль по порядку елементи масиву:",
+							"for (var i = 0; i < +salary.length; i++) {",
+							"    console.log('iter -- ', i, 'salary = ', salary[i])",
+							"    }",
+							"",
+							"// Написати цикл, який виведе в консоль по порядку елементи списку з параметра salary:",
+							"for (var i of salary) {",
+							"    console.log(i)",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/object_info_4?name=Igor&age=38&salary=3000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Igor"
+						},
+						{
+							"key": "age",
+							"value": "38"
+						},
+						{
+							"key": "salary",
+							"value": "3000"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
